@@ -11,6 +11,3 @@ Setup:
   <br />}
 
 3) run the following command in terminal: **node dataLoader.js**
-
-
-
