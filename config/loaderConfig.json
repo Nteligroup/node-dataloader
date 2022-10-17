@@ -1,0 +1,58 @@
+{
+  "connection": {
+    "loginUrl": "https://login.salesforce.com",
+    "username": "bz@nteligroup.com.nteliinv",
+    "password": "CsggfV72ADM84cV40vUIIgDmX1adz5pdgaDEH8n4"
+  },
+  "loadsequence": [
+    {
+      "sequenceName": "Upsert Account",
+      "objectName": "Account",
+      "fileName": "./datafiles/Accounts.csv",
+      "loadType": "upsert",
+      "mappings": [
+        {
+          "source": "Name",
+          "destination": "Name"
+        },
+        {
+          "source": "ExternalID",
+          "destination": "External_ID__c"
+        },
+        {
+          "source": "BillingCountry",
+          "destination": "BillingCountry"
+        },
+        {
+          "source": "CreatedById",
+          "destination": "CreatedById"
+        },
+        {
+          "source": "CreatedDate",
+          "destination": "CreatedDate"
+        }
+      ]
+    },
+    {
+      "sequenceName": "Upsert Contact",
+      "objectName": "Contact",
+      "fileName": "./datafiles/Contacts.csv",
+      "loadType": "upsert",
+      "mappings": [
+        {
+          "source": "Name",
+          "destination": "LastName"
+        },
+        {
+          "source": "External_ID__c",
+          "destination": "External_ID__c"
+        },
+        {
+          "source": "External_Account_ID__c",
+          "destination": "Account",
+          "lookup": "External_ID__c"
+        }
+      ]
+    }
+  ]
+}

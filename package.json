@@ -1,0 +1,23 @@
+{
+  "type": "module",
+  "name": "csvparse",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parse": "^5.3.0",
+    "fast-csv": "^4.3.6",
+    "jsforce": "^1.11.0",
+    "logger": "^0.0.1",
+    "node-salesforce-connection": "^2.3.1",
+    "readline": "^1.3.0",
+    "twilio": "^3.82.1",
+    "winston": "^3.8.2"
+  }
+}
