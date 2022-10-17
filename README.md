@@ -2,7 +2,7 @@
  
 Setup:
 
-1) Run following command in terminal: **npm install winston jsforce csv-parse**
+1) Run following command in terminal: **npm install winston jsforce csv-parse fs**
 2) open loaderConfig.json and change the following to point to your environment:
   <br />"connection": {
     <br />"loginUrl": "https://login.salesforce.com",
