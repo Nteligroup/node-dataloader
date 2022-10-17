@@ -1,6 +1,48 @@
 import { logger } from "./logger.js";
 import { getConfig, getConnection, getDataFile } from "./utils.js";
 
+function createData(conn, config, data) {
+  let interval = 10;
+  let start = 0;
+  let end = interval;
+
+  function loadData(conn, config, data) {
+    return new Promise((resolve, reject) => {
+      // console.log(data);
+
+      if (config.loadType === "insert") {
+        //load bulk data recursively till everything is loaded
+        //console.log(data.slice(start, end));
+        let sData = data.slice(start, end);
+        //console.log(sData);
+        conn.bulk.load(
+          config.objectName,
+          "insert",
+          sData,
+          function (err, rets) {
+            if (err) {
+              console.log(err);
+            }
+            start = end;
+            end = end + interval;
+            if (start < data.length) {
+              console.log(rets);
+              resolve(loadData(conn, config, data));
+            } else {
+              console.log(rets);
+              resolve(rets);
+            }
+          }
+        );
+      } else {
+        resolve();
+      }
+    });
+  }
+
+  return loadData(conn, config, data);
+}
+
 function upsertData(conn, config, data) {
   let interval = 10;
   let start = 0;
@@ -75,9 +117,10 @@ function loadSequences(sfConnection, loadSequence, idx) {
   if (!idx) idx = 0;
 
   return new Promise((resolve, reject) => {
-    if (loadSequence[idx].loadType === "upsert") {
-      getDataFile(loadSequence[idx])
-        .then((data) => {
+    getDataFile(loadSequence[idx])
+      .then((data) => {
+        console.log("loadType: " + loadSequence[idx].loadType);
+        if (loadSequence[idx].loadType === "upsert") {
           upsertData(sfConnection, loadSequence[idx], data).then(() => {
             if (idx === loadSequence.length - 1) {
               resolve("completed");
@@ -85,11 +128,22 @@ function loadSequences(sfConnection, loadSequence, idx) {
               resolve(loadSequences(sfConnection, loadSequence, idx + 1));
             }
           });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+        } else if (loadSequence[idx].loadType === "insert") {
+          createData(sfConnection, loadSequence[idx], data).then(() => {
+            if (idx === loadSequence.length - 1) {
+              resolve("completed");
+            } else {
+              resolve(loadSequences(sfConnection, loadSequence, idx + 1));
+            }
+          });
+        }
+        else if (idx < loadSequence.length - 1) {
+            resolve(loadSequences(sfConnection, loadSequence, idx + 1));
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   });
 }
 

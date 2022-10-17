@@ -34,6 +34,34 @@
       ]
     },
     {
+      "sequenceName": "Insert Account",
+      "objectName": "Account",
+      "fileName": "./datafiles/AccountsInsert.csv",
+      "loadType": "insert",
+      "mappings": [
+        {
+          "source": "Name",
+          "destination": "Name"
+        },
+        {
+          "source": "ExternalID",
+          "destination": "External_ID__c"
+        },
+        {
+          "source": "BillingCountry",
+          "destination": "BillingCountry"
+        },
+        {
+          "source": "CreatedById",
+          "destination": "CreatedById"
+        },
+        {
+          "source": "CreatedDate",
+          "destination": "CreatedDate"
+        }
+      ]
+    },
+    {
       "sequenceName": "Upsert Contact",
       "objectName": "Contact",
       "fileName": "./datafiles/Contacts.csv",

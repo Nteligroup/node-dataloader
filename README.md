@@ -10,7 +10,7 @@ Setup:
     <br />"password": "CsggfV72ADM84cV40vUIIgDmX1adz5pdgaDEH8n4"
   <br />}
 
-3) run the following command in terminal: **node dataUpserter.js**
+3) run the following command in terminal: **node dataLoader.js**
 
 
 
