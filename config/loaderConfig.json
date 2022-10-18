@@ -1,8 +1,8 @@
 {
   "connection": {
     "loginUrl": "https://login.salesforce.com",
-    "username": "bz@nteligroup.com.nteliinv",
-    "password": "CsggfV72ADM84cV40vUIIgDmX1adz5pdgaDEH8n4"
+    "username": "xxx@xxx.com.xxx",
+    "password": "passwordtoken"
   },
   "loadsequence": [
     {
